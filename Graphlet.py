@@ -42,6 +42,24 @@ def __color_refinement(graph: nx.Graph, size: int) -> np.ndarray:
 
 
 def color_refinement2(graph_1: nx.Graph, graph_2: nx.Graph, size: int) -> int:
+    wl_kernel_1 = __color_refinement(graph_1, size)
+    wl_kernel_2 = __color_refinement(graph_2, size)
+    if wl_kernel_1.size < wl_kernel_2.size:
+        temp_wl_1 = np.zeros_like(wl_kernel_2)
+        for i in range(wl_kernel_1.size):
+            temp_wl_1[0, i] = wl_kernel_1[0, i]
+        wl_kernel_1 = temp_wl_1
+    elif wl_kernel_1.size > wl_kernel_2.size:
+        temp_wl_2 = np.zeros_like(wl_kernel_1)
+        for i in range(wl_kernel_2.size):
+            temp_wl_2[0, i] = wl_kernel_2[0, i]
+        wl_kernel_2 = temp_wl_2
+    print(wl_kernel_1)
+    print(wl_kernel_2)
+    return (wl_kernel_1 @ wl_kernel_2.T).item()
+
+
+def color_refinement(graph_1: nx.Graph, graph_2: nx.Graph, size: int) -> int:
     wl_kernel_1 = [0]
     wl_kernel_2 = [0]
     unused_color = 2
@@ -83,24 +101,6 @@ def color_refinement2(graph_1: nx.Graph, graph_2: nx.Graph, size: int) -> int:
     # wl_kernel_1 = np.reshape(np.array(wl_kernel_1), (len(wl_kernel_1), 1))
     # wl_kernel_2 = np.reshape(np.array(wl_kernel_2), (len(wl_kernel_2), 1))
     return (np.array(wl_kernel_1).T @ np.array(wl_kernel_2)).item()
-
-
-def color_refinement(graph_1: nx.Graph, graph_2: nx.Graph, size: int) -> int:
-    wl_kernel_1 = __color_refinement(graph_1, size)
-    wl_kernel_2 = __color_refinement(graph_2, size)
-    if wl_kernel_1.size < wl_kernel_2.size:
-        temp_wl_1 = np.zeros_like(wl_kernel_2)
-        for i in range(wl_kernel_1.size):
-            temp_wl_1[0, i] = wl_kernel_1[0, i]
-        wl_kernel_1 = temp_wl_1
-    elif wl_kernel_1.size > wl_kernel_2.size:
-        temp_wl_2 = np.zeros_like(wl_kernel_1)
-        for i in range(wl_kernel_2.size):
-            temp_wl_2[0, i] = wl_kernel_2[0, i]
-        wl_kernel_2 = temp_wl_2
-    print(wl_kernel_1)
-    print(wl_kernel_2)
-    return (wl_kernel_1 @ wl_kernel_2.T).item()
 
 
 def graphlet_kernel(graph_1: nx.Graph, graph_2: nx.Graph, size: int) -> np.ndarray:

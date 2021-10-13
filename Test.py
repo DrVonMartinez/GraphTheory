@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import networkx as nx
 import numpy as np
 
+import Link_Analysis
 import Link_Prediction as lp
 import Node_Feature as nf
 import Graphlet as grflt
@@ -18,38 +19,8 @@ graph.add_edge('c', 'd')
 graph.add_edge('c', 'f')
 graph.add_edge('d', 'e')
 graph.add_edge('d', 'f')
-graph2 = nx.Graph()
-graph2: nx.Graph = graph2.to_undirected()
-graph2.add_nodes_from(['a', 'b', 'c', 'd', 'e'])
-graph2.add_edge('a', 'b')
-graph2.add_edge('a', 'c')
-graph2.add_edge('b', 'd')
-graph2.add_edge('b', 'c')
-graph2.add_edge('c', 'e')
-graph3 = nx.Graph()
-graph3: nx.Graph = graph3.to_undirected()
-graph3.add_nodes_from(['a', 'b', 'c', 'd'])
-graph3.add_edge('a', 'c')
-graph3.add_edge('a', 'd')
-graph3.add_edge('b', 'd')
-graph3.add_edge('c', 'd')
-graph4 = nx.Graph()
-graph4: nx.Graph = graph4.to_undirected()
-graph4.add_nodes_from(['a', 'b', 'c', 'd'])
-graph4.add_edge('a', 'b')
-graph4.add_edge('a', 'c')
-graph4.add_edge('a', 'd')
-graph4.add_edge('b', 'd')
-graph4.add_edge('c', 'd')
-graph5 = nx.Graph()
-graph5: nx.Graph = graph5.to_undirected()
-graph5.add_nodes_from(['a', 'b', 'c', 'd', 'e'])
-graph5.add_edge('a', 'b')
-graph5.add_edge('a', 'd')
-graph5.add_edge('b', 'c')
-graph5.add_edge('b', 'd')
-graph5.add_edge('c', 'e')
-graph5.add_edge('d', 'e')
+Link_Analysis.page_rank(graph)
+'''
 print(nx.to_numpy_array(graph))
 print(nf.graphlet_degree_vector(graph2, 'a'))
 print(grflt.bag_of_node_degrees(graph3))
@@ -63,7 +34,7 @@ print(len(grflt.distinct_graphlets(3, False)))
 print(len(grflt.distinct_graphlets(4, False)))
 print(len(grflt.distinct_graphlets(5, False)))
 print(grflt.graphlet_kernel(graph5, 3))
-'''
+
 print(lp.common_neighbors(graph, 'a', 'b'))
 print(lp.jaccard_coef(graph, 'a', 'b'))
 print(lp.adamic_adar_index(graph, 'a', 'b'))
