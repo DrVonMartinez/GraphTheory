@@ -35,45 +35,6 @@ def graphlet_degree_vector(graph: nx.Graph, source) -> tuple[np.ndarray, list]:
     return counts, list(map(lambda x: x.degree, graphlet_set))
 
 
-'''
-def graphlet_degree_vector(graph: nx.Graph, source) -> dict:
-    def relabel(subgraph):
-        __graph_history = subgraph.copy()
-        count = 1
-        for j in subgraph.nodes:
-            if j == source:
-                continue
-            __graph_history = nx.relabel_nodes(__graph_history, {j: 'Other_' + str(count)})
-            count += 1
-        return __graph_history
-
-    result = {}
-    sub_graph_history = []
-    for i in range(2, max(dict(graph.degree()).values()) + 1):
-        for sub_nodes in itertools.combinations(graph.nodes(), i):
-            sub_graph: nx.Graph = graph.subgraph(sub_nodes)
-            if not sub_graph.has_node(source) or not nx.is_connected(sub_graph):
-                continue
-            graph_history = relabel(sub_graph)
-            if not any([nx.is_isomorphic(graph_history, x) for x in sub_graph_history]):
-                if graph_history not in sub_graph_history:
-                    sub_graph_history.append(graph_history)
-                    result[len(sub_graph_history) - 1] = 0
-                    print(result, 'new added')
-            print(list(map(lambda x: x.nodes, sub_graph_history)))
-
-            print(graph_history.nodes)
-            print(sub_graph.nodes)
-            print(nx.is_connected(sub_graph))
-            # if nx.is_connected(sub_graph) and nx.is_isomorphic(sub_graph, target) and sub_graph.has_node(source):
-            if nx.is_connected(sub_graph):
-                # result[i] = str(sub_graph.edges())
-                index = list(map(lambda x: nx.is_isomorphic(sub_graph, x), sub_graph_history))
-                result[index.index(True)] += 1
-    return result
-'''
-
-
 def graphlet(size: int) -> list[nx.Graph]:
     graphlet_set = []
     graph: nx.Graph = nx.complete_graph(['Source'] + ['Other_' + str(i) for i in range(size - 1)])

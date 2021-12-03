@@ -4,7 +4,8 @@ import matplotlib.pyplot as plt
 import networkx as nx
 import numpy as np
 
-import Link_Analysis
+import Node_Embedding
+import Page_Rank
 import Link_Prediction as lp
 import Node_Feature as nf
 import Graphlet as grflt
@@ -17,7 +18,8 @@ graph.add_edge('y', 'a')
 graph.add_edge('m', 'a')
 graph.add_edge('a', 'y')
 graph.add_edge('m', 'm')
-print(Link_Analysis.page_rank(graph, beta=0.8))
+# print(Page_Rank.page_rank(graph, beta=0.8))
+print(Node_Embedding.simple_node_similarity(graph))
 '''
 print(nx.to_numpy_array(graph))
 print(nf.graphlet_degree_vector(graph2, 'a'))
