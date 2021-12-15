@@ -28,7 +28,7 @@ def random_walk_embedding(graph: nx.Graph, random_samples: int) -> np.ndarray:
     np.random.seed(0)
     node_embedding_np = np.reshape(np.random.normal(size=graph.size() ** 2), (graph.size(), graph.size()))
     negative_node_sampling = [x[0] for x in graph.degree for _ in range(x[1])]
-    for i in range(100):
+    for _ in range(100):
         for u in graph.nodes:
             def negative_sampling(embedding: np.ndarray):
                 total = np.array([0])
