@@ -55,3 +55,4 @@ if __name__ == '__main__':
     g3 = test_graph6()
     g4 = test_graph7()
     print(tree_isomorphism(g3, g4))
+
